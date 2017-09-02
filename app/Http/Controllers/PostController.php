@@ -14,6 +14,7 @@ class PostController extends Controller
 
     public function index()
     {
+        // session('message')
         $posts = Post::latest()
                 ->filter(request(['month', 'year']))
                 ->get();
@@ -49,6 +50,11 @@ class PostController extends Controller
             new Post(request(['title', 'body']))
         );
 
-          return redirect('/');
+        session()->flash(
+            'message',
+            'Your post has now been published.'
+        );
+
+        return redirect('/');
     }
 }
